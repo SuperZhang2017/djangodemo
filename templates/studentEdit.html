@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+ <form method="POST" action="/hellodjango/editStudent/{{nid}}/">
+        {% csrf_token %}
+     <table>
+        {{ sf.as_table }}
+     </table>
+
+        <input type="submit" value="提交" />
+    </form>
+
+
+{#        {% for row in li %}#}
+{#            <li>{{ row.name }}    {{ row.sex }}   <a href="/edit/{{ row.id }}/">编辑</a></li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+
+
+</body>
+</html>

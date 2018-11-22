@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <table>
+      <thead>
+         <th>姓名</th>
+         <th>性别</th>
+         <th>地址</th>
+         <th>操作</th>
+      </thead>
+      <tbody>
+         {% for row in li %}
+           <tr style="border: 2px solid">
+               <td>{{ row.name }}</td>
+               <td>{{ row.sex }}</td>
+               <td>{{ row.addr }}</td>
+               <td><a href="/hellodjango/editStudent/{{ row.id }}/">编辑</a>
+               <a href="/hellodjango/delStudent/{{ row.id }}/">删除</a>
+               </td>
+           </tr>
+        {% endfor %}
+
+
+      </tbody>
+
+
+   </table>
+{#        {% for row in li %}#}
+{#            <li>{{ row.name }}    {{ row.sex }}   <a href="/edit/{{ row.id }}/">编辑</a></li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+
+
+</body>
+</html>
