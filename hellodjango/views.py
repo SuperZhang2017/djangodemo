@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 from hellodjango.models import Student
 
@@ -69,7 +69,7 @@ def saveStudent(request,id):
     student = Student.objects.get(pk=id)
         #obj = studentForm()
     if request.method=='POST':
-        obj = studentForm(request.POST, instance=student)
+        obj = StudentForm(request.POST, instance=student)
 
         print(obj.is_valid())
         # print(obj.name)
@@ -82,7 +82,7 @@ def saveStudent(request,id):
             print(123)
             print(obj.errors)
     else:
-        obj = studentForm(instance=student)
+        obj = StudentForm(instance=student)
     return render(request, '../templates/student.html', {"obj": obj})
 
 
@@ -94,22 +94,19 @@ def editStudent(request,nid):
     if request.method == "GET":
         print('123')
         student_obj = Student.objects.filter(id=nid).first()
-        sf = studentForm(instance=student_obj)
+        sf = StudentForm(instance=student_obj)
         return render(request, '../templates/studentEdit.html', {"sf":sf,"nid":nid})
 
     else:
         print("Post")
         student_obj = Student.objects.filter(id=nid).first()
-        sf = studentForm(request.POST,instance=student_obj)
+        sf = StudentForm(request.POST,instance=student_obj)
         print(sf.is_valid())
         if sf.is_valid():
             print('234')
             sf.save()
             print("保存成功！")
-        else:
-            print('345')
-            print(sf.errors.as_json())
-        return render(request, '../templates/studentEdit.html',{"sf":sf,"nid":nid})
+        return HttpResponseRedirect("/hellodjango/studentList/")
 
 
 
@@ -118,9 +115,9 @@ def delStudent(request,nid):
         return HttpResponse(nid+"删除成功!")
     elif request.method == 'GET':
         print("GET")
-        Student.objects.filter(id=nid).delete()
-        print('删除成功！')
+        c = Student.objects.filter(id=nid).delete()
+        print("删除成功")
         li = Student.objects.all()
-        return render(request, '../templates/studentList.html', {"li": li})
+        return HttpResponseRedirect("/hellodjango/studentList/")
 
 
